@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Arcane 52 · Manual del duelista</title>
+<style>
+@font-face{font-family:"PS2P";src:url(fonts/press-start-2p-latin-400-normal.woff2)}
+@font-face{font-family:"Silk";src:url(fonts/silkscreen-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:"Silk";src:url(fonts/silkscreen-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:"Nunito";src:url(fonts/nunito-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:"Nunito";src:url(fonts/nunito-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:"Nunito";src:url(fonts/nunito-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:"Nunito";src:url(fonts/nunito-latin-900-normal.woff2);font-weight:900}
+:root{
+ --k0:#000;--ink:#1d2b53;--plum:#7e2553;--dkg:#008751;--brn:#ab5236;--dgr:#5f574f;--lgr:#c2c3c7;
+ --paper:#fff1e8;--red:#ff004d;--org:#ffa300;--yel:#ffec27;--grn:#00e436;--blu:#29adff;--lav:#83769c;--pnk:#ff77a8;--pch:#ffccaa;
+}
+@page{size:200mm 200mm;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#555}
+body{font-family:"Nunito",sans-serif;font-size:12.2pt;line-height:1.36;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+img{image-rendering:pixelated}
+.page{width:200mm;height:200mm;position:relative;overflow:hidden;page-break-after:always;padding:15mm 14mm 16mm;
+ background:var(--paper) radial-gradient(circle,#f3dccd 1px,transparent 1.2px) 0 0/4mm 4mm}
+.page:last-child{page-break-after:auto}
+.night{background:var(--k0);color:var(--paper)}
+.night::before{content:"";position:absolute;inset:0;background:
+ radial-gradient(circle,#fff1e8 .5px,transparent .9px) 3mm 7mm/23mm 19mm,
+ radial-gradient(circle,#c2c3c7 .5px,transparent .9px) 11mm 2mm/31mm 27mm,
+ radial-gradient(circle,#83769c .6px,transparent 1px) 17mm 13mm/17mm 23mm;opacity:.9}
+.night>*{position:relative}
+/* marco pixel de pagina */
+.page::after{content:"";position:absolute;inset:5mm;border:1.2mm solid var(--ink);pointer-events:none;
+ clip-path:polygon(0 1.2mm,1.2mm 1.2mm,1.2mm 0,calc(100% - 1.2mm) 0,calc(100% - 1.2mm) 1.2mm,100% 1.2mm,100% calc(100% - 1.2mm),calc(100% - 1.2mm) calc(100% - 1.2mm),calc(100% - 1.2mm) 100%,1.2mm 100%,1.2mm calc(100% - 1.2mm),0 calc(100% - 1.2mm))}
+.night::after{border-color:var(--plum)}
+.pn{position:absolute;bottom:7.6mm;left:0;right:0;text-align:center;font:6.5pt "PS2P";color:var(--ink)}
+.pn img{height:2.6mm;vertical-align:-0.35mm;margin:0 1.4mm}
+.night .pn{color:var(--lav)}
+h1,h2,h3{margin:0;font-weight:400}
+h2{font:15pt/1.25 "PS2P";display:inline-block;background:var(--yel);color:var(--ink);padding:3mm 4mm 2.4mm;
+ border:.8mm solid var(--ink);box-shadow:1.3mm 1.3mm 0 var(--ink);margin:0 0 5mm;transform:rotate(-1.2deg)}
+h2.red{background:var(--red);color:var(--paper)} h2.blu{background:var(--blu)} h2.grn{background:var(--grn)} h2.pnk{background:var(--pnk)} h2.org{background:var(--org)} h2.lav{background:var(--lav);color:var(--paper)}
+h3{font:10.2pt/1.3 "PS2P";margin:0 0 2mm;color:var(--plum)}
+p{margin:0 0 2.4mm}
+b,strong{font-weight:900}
+.lead{font-size:13.6pt;font-weight:700}
+.box{border:.7mm solid var(--ink);background:#fff;box-shadow:1.2mm 1.2mm 0 var(--ink);padding:3.5mm 4mm;margin-bottom:4mm}
+.box.y{background:#fff7c2}.box.b{background:#dff3ff}.box.g{background:#dcf9e3}.box.p{background:#ffe3ee}.box.l{background:#ece7f5}
+.tag{display:inline-block;font:6.5pt "PS2P";padding:1.3mm 2mm 1mm;border:.5mm solid var(--ink);background:var(--pch);margin:0 1mm 1mm 0}
+.row{display:flex;gap:5mm;align-items:flex-start}
+.col{flex:1;min-width:0}
+.center{text-align:center}
+.px{font-family:"PS2P";font-size:7pt;line-height:1.5}
+.silk{font-family:"Silk"}
+table{border-collapse:collapse;width:100%;font-size:11.4pt}
+th{font:7.6pt "PS2P";text-align:left;background:var(--ink);color:var(--paper);padding:2mm 2mm 1.6mm}
+td{padding:1.5mm 2mm;border-bottom:.35mm dashed #c9b8ad;vertical-align:middle}
+td img{height:5mm;vertical-align:middle}
+.num{display:inline-flex;width:7mm;height:7mm;align-items:center;justify-content:center;background:var(--red);color:var(--paper);
+ font:8pt "PS2P";border:.6mm solid var(--ink);box-shadow:.7mm .7mm 0 var(--ink);flex:none;padding-top:.4mm}
+.step{display:flex;gap:3mm;align-items:flex-start;margin-bottom:3mm}
+.step>div{flex:1}
+/* consejo del archimago */
+.tip{display:flex;gap:3mm;align-items:flex-end;margin:2mm 0 3mm}
+.tip img{width:20mm;flex:none}
+.tip .bub{position:relative;background:#fff;border:.7mm solid var(--ink);padding:2.5mm 3.2mm;font-size:10.6pt;box-shadow:1mm 1mm 0 var(--ink)}
+.tip .bub::before{content:"";position:absolute;left:-2.9mm;bottom:3mm;border:1.4mm solid transparent;border-right:1.6mm solid var(--ink)}
+.tip .bub b.who{font:6pt "PS2P";color:var(--blu);display:block;margin-bottom:1mm}
+.tip.r{flex-direction:row-reverse}.tip.r .bub::before{left:auto;right:-2.9mm;border-right:1.4mm solid transparent;border-left:1.6mm solid var(--ink)}
+.tip.r .bub b.who{color:var(--red)}
+/* cartas reales del juego */
+.rc{height:19mm;border:0;filter:drop-shadow(.8mm .8mm 0 rgba(29,43,83,.55))}
+.rc.s{height:13mm}.rc.m{height:16mm}.rc.l{height:26mm}
+/* carta ilustrada (ficticia) */
+.fc{width:40mm;height:56mm;background:var(--k0);border:1.3mm solid var(--pch);position:relative;display:flex;flex-direction:column;
+ padding:1.8mm;color:var(--paper);box-shadow:1.2mm 1.2mm 0 var(--ink);outline:.5mm solid var(--ink);flex:none}
+.fc.mana{border-color:var(--blu);background:var(--ink)}
+.fc.spell{border-color:var(--pnk);background:var(--plum)}
+.fc .top{display:flex;align-items:center;gap:1.2mm;height:5.2mm;font:9pt "PS2P"}
+.fc .top img{height:3.7mm}
+.fc .top .cost{margin-left:auto;display:flex;align-items:center;gap:.5mm;font:6.5pt "PS2P";background:var(--ink);border:.35mm solid var(--blu);padding:.8mm 1mm .5mm}
+.fc .top .cost img{height:2.8mm}
+.fc .art{width:100%;aspect-ratio:48/40;border:.5mm solid var(--paper);margin-top:1mm;display:block}
+.fc .nm{font:6pt/1.3 "PS2P";margin-top:1.6mm;color:var(--yel);min-height:5mm}
+.fc .ty{font:5.6pt "Silk";letter-spacing:.1mm;color:var(--lgr);margin-top:.2mm}
+.fc .fx{font-size:6.8pt;line-height:1.22;margin-top:1mm;flex:1;color:var(--paper)}
+.fc .fx i{color:var(--lgr)}
+.fc .st{position:absolute;right:1.6mm;bottom:1.6mm;font:7.5pt "PS2P";background:var(--k0);border:.45mm solid var(--paper);padding:1mm 1.2mm .7mm}
+.fc.big{width:58mm;height:81mm;padding:2.6mm;border-width:1.8mm}
+.fc.big .top{font-size:12pt;height:7mm}.fc.big .top img{height:5mm}
+.fc.big .nm{font-size:8.2pt}.fc.big .ty{font-size:7.2pt}.fc.big .fx{font-size:10pt}.fc.big .st{font-size:10pt}
+.fc.big .top .cost{font-size:8pt}.fc.big .top .cost img{height:3.6mm}
+.tilt1{transform:rotate(-4deg)}.tilt2{transform:rotate(3deg)}.tilt3{transform:rotate(-2deg)}
+/* anatomia */
+.call{position:absolute;display:flex;align-items:center;gap:1.5mm;font-size:10.8pt;line-height:1.2}
+.call .num{width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu)}
+/* mesa */
+.mesa{border:.8mm solid var(--ink);box-shadow:1.3mm 1.3mm 0 var(--ink);padding:2.5mm;background:var(--k0)}
+.zone{position:relative;padding:2mm 2.5mm;display:flex;align-items:center;gap:2mm;min-height:24mm;color:var(--paper)}
+.zone.riv{background:repeating-conic-gradient(#00875a 0 25%,#1d2b53 0 50%) 0 0/1.2mm 1.2mm}
+.zone.own{background:repeating-conic-gradient(#7e2553 0 25%,#1d2b53 0 50%) 0 0/1.2mm 1.2mm}
+.zone.mid{background:repeating-conic-gradient(#1d2b53 0 25%,#000 0 50%) 0 0/1.2mm 1.2mm;min-height:22mm}
+.slot{width:13.4mm;height:18mm;border:.45mm dashed var(--lgr);flex:none}
+.zl{font:6.2pt "PS2P";background:var(--k0);padding:1mm 1.3mm .7mm;border:.35mm solid var(--lgr);color:var(--yel);white-space:nowrap}
+.hand{display:flex;justify-content:center;margin-top:-1mm;padding-top:2mm;background:var(--k0)}
+.hand img{height:17mm;margin:0 -1mm;filter:drop-shadow(.5mm .5mm 0 #000)}
+.hand img:nth-child(1){transform:rotate(-10deg) translateY(1.5mm)}.hand img:nth-child(2){transform:rotate(-5deg)}.hand img:nth-child(4){transform:rotate(5deg)}.hand img:nth-child(5){transform:rotate(10deg) translateY(1.5mm)}
+/* escuela */
+.sch{display:flex;gap:3mm;align-items:center;border:.7mm solid var(--ink);box-shadow:1.2mm 1.2mm 0 var(--ink);padding:3mm;margin-bottom:3.6mm;background:#fff}
+.sch img.pp{width:13mm;flex:none;padding:1.5mm;background:var(--k0);border:.5mm solid var(--ink)}
+.sch .nm{font:11pt "PS2P";margin-bottom:1.2mm}
+.sch .tg{font:6.6pt "PS2P";display:inline-block;padding:.9mm 1.4mm .6mm;border:.35mm solid var(--ink);margin-top:1mm}
+.key{display:inline-block;font:7pt "PS2P";min-width:6mm;padding:1.3mm 1.4mm 1mm;text-align:center;background:var(--paper);color:var(--ink);
+ border:.5mm solid var(--ink);border-bottom-width:1.2mm;border-radius:1mm;margin:0 .6mm}
+.key.ar{font:7pt "DejaVu Sans"}
+.grp{display:flex;flex-direction:column;gap:1mm;align-items:flex-start}.grp>div{display:flex;gap:1.5mm;align-items:center}
+
+.band{position:absolute;left:14mm;right:14mm;bottom:17mm;background:var(--k0);color:var(--paper);border:.8mm solid var(--ink);box-shadow:1.3mm 1.3mm 0 var(--plum);
+ display:flex;justify-content:space-around;align-items:center;padding:3mm 2mm;font:7pt "PS2P"}
+.band span{display:flex;align-items:center;gap:1.8mm}.band img{height:5mm}
+.track{display:flex;gap:0;margin:1mm 0 3mm}
+.track div{flex:1;height:9mm;border:.45mm solid var(--ink);margin-left:-.45mm;display:flex;align-items:center;justify-content:center;font:6.5pt "PS2P";background:#fff}
+.track.b div:nth-child(odd){background:#dff3ff}.track.r div:nth-child(odd){background:#ffe3ee}
+.track div.hp{background:var(--yel)!important}
+.modes{display:flex;gap:4mm;margin-top:5mm}
+.modes>div{flex:1;border:.6mm solid var(--plum);background:#111;padding:3mm;display:flex;gap:2.5mm;align-items:center;font-size:10.4pt}
+.modes img{height:12mm}
+.modes b{font:7pt "PS2P";color:var(--yel);display:block;margin-bottom:1mm}
+.shot{border:.8mm solid var(--ink);box-shadow:1.2mm 1.2mm 0 var(--ink);width:100%;display:block}
+.cap{font:6.8pt/1.5 "PS2P";margin-top:2.3mm;color:var(--plum)}
+.arrow{font:14pt "PS2P";color:var(--red)}
+.vs{font:9pt "PS2P";color:var(--red)}
+ul{margin:0 0 2mm;padding-left:5mm}li{margin-bottom:1mm}
+ul.px li{margin-bottom:1.8mm}
+.faq b.q{font:8pt/1.45 "PS2P";color:var(--plum);display:block;margin-bottom:.8mm}
+.faq p{margin-bottom:3.2mm}
+.badge{display:inline-flex;align-items:center;gap:1.5mm;font:6.5pt "PS2P";background:var(--ink);color:var(--paper);border:.5mm solid var(--lav);padding:1.8mm 2.4mm 1.4mm;margin:0 1mm}
+.badge img{height:3.2mm}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ 1 PORTADA -->
+<section class="page night" style="padding:14mm 12mm">
+ <div class="center" style="margin-top:3mm"><img src="img/logo.png" style="width:84mm"></div>
+ <div class="center px" style="color:var(--pch);font-size:9.1pt;margin-top:3mm;letter-spacing:.3mm">DUELOS RÁPIDOS CON CUALQUIER BARAJA</div>
+ <div class="center" style="margin-top:6mm"><img src="img/duel.png" style="width:136mm;border:.8mm solid var(--plum)"></div>
+ <div class="center" style="margin-top:6.5mm">
+  <span class="badge"><img src="img/wiz_b.png"> 2 MAGOS</span>
+  <span class="badge"><img src="img/pip1.png"> 15 VIDAS</span>
+  <span class="badge"><img src="img/drop.png"> 52 CARTAS</span>
+  <span class="badge">⏳ 15 MIN</span>
+ </div>
+ <div class="center px" style="position:absolute;bottom:10mm;left:0;right:0;color:var(--lav);font-size:6pt">MANUAL DEL DUELISTA · REGLAS OFICIALES v0.2</div>
+</section>
+
+<!-- ============================================================ 2 BIENVENIDA -->
+<section class="page">
+ <h2>¡Bienvenido, aprendiz!</h2>
+ <div class="row">
+  <div class="col">
+   <p class="lead">En lo alto de la Torre de las 52 Puertas, dos magos se sientan frente a frente. Entre ellos, una mesa, una vela y una baraja. Nada más.</p>
+   <p>Cada naipe guarda un secreto: los números bajos despiertan <b>criaturas</b>, los números altos se funden en <b>maná</b> y las figuras liberan <b>hechizos</b>. Los palos no son simples dibujos: son las cuatro <b>escuelas arcanas</b> de las que cada mago extrae su poder.</p>
+   <p><b>Arcane 52</b> es un duelo rápido para dos jugadores que puedes jugar con <b>cualquier baraja francesa de 52 cartas</b>, o en la consola de fantasía <b>PICO-8</b>.</p>
+   <div class="tip"><img src="img/wiz_b.png"><div class="bub"><b class="who">EL ARCHIMAGO DICE</b>Si sabes jugar a las cartas, ya sabes el 80% de Arcane 52. El 20% restante cabe en este librito.</div></div>
+  </div>
+  <div style="width:62mm;flex:none">
+   <div class="box y">
+    <h3>Qué necesitas</h3>
+    <div class="center" style="margin:1mm 0 2.5mm"><img class="rc m" src="img/c_back.png" style="margin-right:-5mm;transform:rotate(-8deg)"><img class="rc m" src="img/c_back.png" style="margin-right:-5mm;transform:rotate(-2deg)"><img class="rc m" src="img/c_1_1.png" style="transform:rotate(6deg)"></div>
+    <ul>
+     <li><b>1 baraja</b> de 52 cartas (sin comodines).</li>
+     <li><b>2 contadores de vida</b>: dados, fichas, papel y lápiz o una app.</li>
+     <li><b>2 jugadores</b> de 8 años o más.</li>
+     <li>Una mesa… y un poco de valor.</li>
+    </ul>
+   </div>
+   <div class="box p">
+    <h3>Objetivo</h3>
+    <div class="row" style="gap:3mm;align-items:center"><img src="img/skull.png" style="width:12mm;background:var(--k0);padding:1mm;border:.5mm solid var(--ink)"><p style="margin:0">Reduce la vida de tu rival de <b>15 a 0</b>. El primero que llega a 0 pierde al instante.</p></div>
+   </div>
+  </div>
+ </div>
+ <div class="band"><span>LAS 4 ESCUELAS:</span><span style="color:var(--red)"><img src="img/pip1.png">VITALIS</span><span style="color:var(--blu)"><img src="img/pip2.png">AETHER</span><span style="color:var(--grn)"><img src="img/pip3.png">GROVE</span><span style="color:var(--lav)"><img src="img/pip4.png">RUIN</span></div>
+ <div class="pn"><img src="img/pip1.png">2<img src="img/pip2.png"></div>
+</section>
+
+<!-- ============================================================ 3 LAS CARTAS -->
+<section class="page">
+ <h2 class="blu">Cada carta, un conjuro</h2>
+ <p class="lead" style="margin-bottom:4mm">El <b>rango</b> de una carta dice qué hace. El <b>palo</b> dice a qué escuela pertenece.</p>
+ <div class="row" style="gap:4mm">
+  <div class="col box" style="background:#fff">
+   <div class="center" style="height:20mm;white-space:nowrap"><img class="rc m" src="img/c_4_1.png"> <img class="rc m" src="img/c_2_3.png"> <img class="rc m" src="img/c_1_5.png"></div>
+   <h3 style="color:var(--dgr);margin-top:2mm">A · 2 · 3 · 4 · 5</h3>
+   <div class="tag" style="background:var(--pch)">CRIATURAS</div>
+   <p>Pagan un coste de maná, llegan a la mesa y <b>atacan</b> o <b>bloquean</b>. Su ataque y defensa son iguales a su rango.</p>
+  </div>
+  <div class="col box" style="background:#fff">
+   <div class="center" style="height:20mm;white-space:nowrap"><img class="rc m" src="img/c_3_6.png"> <img class="rc m" src="img/c_2_8.png"> <img class="rc m" src="img/c_1_10.png"></div>
+   <h3 style="color:var(--blu);margin-top:2mm">6 · 7 · 8 · 9 · 10</h3>
+   <div class="tag" style="background:var(--blu)">MANÁ</div>
+   <p>La energía del duelo. Cada carta de maná <b>se gira para dar 1 maná</b>. Solo puedes bajar una por turno.</p>
+  </div>
+  <div class="col box" style="background:#fff">
+   <div class="center" style="height:20mm;white-space:nowrap"><img class="rc m" src="img/c_4_11.png"> <img class="rc m" src="img/c_2_12.png"> <img class="rc m" src="img/c_3_13.png"></div>
+   <h3 style="color:var(--pnk);margin-top:2mm">J · Q · K</h3>
+   <div class="tag" style="background:var(--pnk)">HECHIZOS</div>
+   <p>Efectos inmediatos: cancelar ataques, proteger, curar, dañar. Cada figura tiene <b>dos modos</b> a elegir.</p>
+  </div>
+ </div>
+ <div class="row" style="align-items:center;margin-top:1mm">
+  <div class="box l col" style="margin:0">
+   <h3>Sin pila de descarte</h3>
+   <p style="margin:0">Toda carta usada, destruida o retirada <b>vuelve boca abajo al fondo del mazo</b>, sin barajar. El mazo nunca se acaba: lo que cae hoy volverá a tu mano mañana.</p>
+  </div>
+  <img class="rc l tilt2" src="img/c_back.png" style="margin:0 4mm">
+ </div>
+ <div class="tip" style="margin-top:5mm"><img src="img/wiz_b.png"><div class="bub"><b class="who">TRUCO DEL ARCHIMAGO</b><b>Bajo</b> despierta, <b>alto</b> alimenta, <b>figura</b> hechiza. Del As al 5, criaturas; del 6 al 10, maná; J, Q y K, hechizos.</div></div>
+ <div class="pn"><img src="img/pip2.png">3<img src="img/pip3.png"></div>
+</section>
+
+<!-- ============================================================ 4 ANATOMIA -->
+<section class="page">
+ <h2 class="org">Anatomía de una carta</h2>
+ <div style="position:relative;height:150mm">
+  <div class="fc big crea" style="position:absolute;left:58mm;top:6mm">
+   <div class="top">4<img src="img/pip1.png"><span class="cost"><img src="img/drop.png">3</span></div>
+   <img class="art" src="img/art_cab.png">
+   <div class="nm">CABALLERO DE HIERRO</div>
+   <div class="ty">CRIATURA · VITALIS</div>
+   <div class="fx"><i>«Juró proteger la vela del gran salón.»</i></div>
+   <div class="st">4/4</div>
+  </div>
+  <span class="num" style="position:absolute;left:52mm;top:7mm;width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu);z-index:2">1</span><span class="num" style="position:absolute;left:70mm;top:1.5mm;width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu);z-index:2">2</span><span class="num" style="position:absolute;left:52mm;top:34mm;width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu);z-index:2">3</span><span class="num" style="position:absolute;left:114mm;top:4mm;width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu);z-index:2">4</span><span class="num" style="position:absolute;left:114mm;top:57mm;width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu);z-index:2">5</span><span class="num" style="position:absolute;left:114mm;top:78mm;width:5.6mm;height:5.6mm;font-size:6.5pt;background:var(--blu);z-index:2">6</span>
+  <div class="call" style="left:0;top:9mm;width:55mm"><span class="num">1</span><span><b>Rango</b>: define el tipo de carta (aquí, criatura).</span></div>
+  <div class="call" style="left:0;top:26mm;width:55mm"><span class="num">2</span><span><b>Palo = escuela</b>. ♥ Vitalis, ♦ Aether, ♣ Grove, ♠ Ruin.</span></div>
+  <div class="call" style="left:0;top:48mm;width:55mm"><span class="num">3</span><span><b>Ilustración</b>: el icono que verás en pantalla.</span></div>
+  <div class="call" style="left:122mm;top:9mm;width:50mm"><span class="num">4</span><span><b>Coste</b> en maná para jugarla.</span></div>
+  <div class="call" style="left:122mm;top:62mm;width:50mm"><span class="num">5</span><span><b>Nombre y escuela</b>, para los que aman el lore.</span></div>
+  <div class="call" style="left:122mm;top:80mm;width:50mm"><span class="num">6</span><span><b>Ataque / Defensa</b>. Un 4 es un 4/4.</span></div>
+  <div style="position:absolute;left:0;top:96mm;width:58mm" class="box y">
+   <h3>¿Y la baraja normal?</h3>
+   <p style="margin:0;font-size:11.3pt">Estas ilustraciones son una <b>edición soñada</b>. Con una baraja común solo miras rango y palo. A la derecha, las cartas de PICO-8.</p>
+  </div>
+  <div style="position:absolute;left:62mm;top:98mm;width:110mm" class="row">
+   <div class="center"><img class="rc l" src="img/c_1_4.png"><div class="cap">EN JUEGO</div></div>
+   <div class="center"><img class="rc l" src="img/c_tapped.png" style="height:20mm;margin-top:3mm"><div class="cap">GIRADA</div></div>
+   <div class="center"><img class="rc l" src="img/c_back.png"><div class="cap">DORSO</div></div>
+  </div>
+ </div>
+ <div class="pn"><img src="img/pip3.png">4<img src="img/pip4.png"></div>
+</section>
+
+<!-- ============================================================ 5 CRIATURAS -->
+<section class="page">
+ <h2 class="red">El bestiario</h2>
+ <div class="row" style="justify-content:center;gap:2mm;margin-bottom:6mm">
+  <div class="fc crea tilt1" style="width:32.5mm;height:46mm"><div class="top">A<img src="img/pip2.png"><span class="cost"><img src="img/drop.png">1</span></div><img class="art" src="img/art_esp.png"><div class="nm" style="font-size:5pt">ESPECTRO ERRANTE</div><div class="st" style="font-size:6pt">1/1</div></div>
+  <div class="fc crea" style="width:32.5mm;height:46mm;margin-top:3mm"><div class="top">2<img src="img/pip4.png"><span class="cost"><img src="img/drop.png">2</span></div><img class="art" src="img/art_esq.png"><div class="nm" style="font-size:5pt">ESQUELETO GUARDIÁN</div><div class="st" style="font-size:6pt">2/2</div></div>
+  <div class="fc crea tilt2" style="width:32.5mm;height:46mm"><div class="top">3<img src="img/pip3.png"><span class="cost"><img src="img/drop.png">2</span></div><img class="art" src="img/art_tra.png"><div class="nm" style="font-size:5pt">TRASGO DEL MUSGO</div><div class="st" style="font-size:6pt">3/3</div></div>
+  <div class="fc crea tilt3" style="width:32.5mm;height:46mm;margin-top:3mm"><div class="top">4<img src="img/pip1.png"><span class="cost"><img src="img/drop.png">3</span></div><img class="art" src="img/art_cab.png"><div class="nm" style="font-size:5pt">CABALLERO DE HIERRO</div><div class="st" style="font-size:6pt">4/4</div></div>
+  <div class="fc crea tilt2" style="width:32.5mm;height:46mm"><div class="top">5<img src="img/pip4.png"><span class="cost"><img src="img/drop.png">3</span></div><img class="art" src="img/art_dem.png"><div class="nm" style="font-size:5pt">DEMONIO DEL ABISMO</div><div class="st" style="font-size:6pt">5/5</div></div>
+ </div>
+ <div class="row">
+  <div class="col">
+   <table>
+    <tr><th>CARTA</th><th>COSTE</th><th>ATQ/DEF</th><th>NOTA</th></tr>
+    <tr><td><b>A</b></td><td>1</td><td>1/1</td><td>También puede girarse para dar 1 maná.</td></tr>
+    <tr><td><b>2</b></td><td>2</td><td>2/2</td><td>—</td></tr>
+    <tr><td><b>3</b></td><td>2</td><td>3/3</td><td>La ganga del bestiario.</td></tr>
+    <tr><td><b>4</b></td><td>3</td><td>4/4</td><td>—</td></tr>
+    <tr><td><b>5</b></td><td>3</td><td>5/5</td><td>El terror de la mesa.</td></tr>
+   </table>
+  </div>
+  <div style="width:56mm;flex:none">
+   <div class="box p" style="font-size:11.5pt">
+    <h3>Mareo de invocación</h3>
+    <p style="margin:0">Una criatura recién llegada <b>no puede atacar</b> ese turno, pero sí puede <b>bloquear</b> en el turno rival si está enderezada.</p>
+   </div>
+  </div>
+ </div>
+ <div class="tip r" style="margin-top:4mm"><img src="img/wiz_r.png"><div class="bub"><b class="who">LA HECHICERA DICE</b>Un 3 cuesta lo mismo que un 2 pero pega más fuerte. Y un 5 cuesta igual que un 4… ¡guárdame siempre los 5!</div></div>
+ <div class="pn"><img src="img/pip4.png">5<img src="img/pip1.png"></div>
+</section>
+
+<!-- ============================================================ 6 MANA Y HECHIZOS -->
+<section class="page">
+ <h2 class="pnk">Maná y hechizos</h2>
+ <div class="row" style="gap:6mm">
+  <div style="width:44mm;flex:none">
+   <div class="fc mana tilt1" style="margin:2mm 0 5mm 2mm">
+    <div class="top">8<img src="img/pip2.png"></div>
+    <img class="art" src="img/art_got.png">
+    <div class="nm">GOTA DE ÉTER</div><div class="ty">MANÁ</div>
+    <div class="fx">Gírala: <b>+1 maná</b>.<br><i>Brilla más cuando nadie la mira.</i></div>
+   </div>
+   <ul style="font-size:11.5pt">
+    <li>Baja <b>1 carta de maná por turno</b> como máximo.</li>
+    <li>Gira maná para pagar costes; queda girado hasta tu siguiente turno.</li>
+    <li>Un <b>As</b> en juego también puede girarse para dar 1 maná.</li>
+   </ul>
+  </div>
+  <div class="col">
+   <div class="row" style="gap:3mm;margin-bottom:4mm;justify-content:space-between">
+    <div class="fc spell tilt2" style="width:34mm;height:47mm"><div class="top">J<img src="img/pip1.png"></div><img class="art" src="img/art_des.png"><div class="nm" style="font-size:5pt">DESTELLO</div><div class="ty" style="font-size:5pt">HECHIZO</div></div>
+    <div class="fc spell" style="width:34mm;height:47mm;margin-top:2mm"><div class="top">Q<img src="img/pip2.png"></div><img class="art" src="img/art_egi.png"><div class="nm" style="font-size:5pt">ÉGIDA</div><div class="ty" style="font-size:5pt">HECHIZO</div></div>
+    <div class="fc spell tilt1" style="width:34mm;height:47mm"><div class="top">K<img src="img/pip3.png"></div><img class="art" src="img/art_fil.png"><div class="nm" style="font-size:5pt">FILO ARCANO</div><div class="ty" style="font-size:5pt">HECHIZO</div></div>
+   </div>
+   <table>
+    <tr><th>CARTA</th><th>COSTE</th><th>ELIGE UN MODO</th></tr>
+    <tr><td rowspan="2"><b>J</b> Destello</td><td>1</td><td>Cancela una criatura <b>atacante</b>.</td></tr>
+    <tr><td>1</td><td>Una criatura <b>no puede ser bloqueada</b> este turno.</td></tr>
+    <tr><td rowspan="2"><b>Q</b> Égida</td><td>1</td><td>Una criatura gana <b>+0/+2</b> este turno.</td></tr>
+    <tr><td>3</td><td>Ganas <b>4 vidas</b>.</td></tr>
+    <tr><td rowspan="2"><b>K</b> Filo arcano</td><td>1</td><td>Una criatura gana <b>+1/+0</b> este turno.</td></tr>
+    <tr><td>1</td><td>Haz <b>1 daño</b> a una criatura.</td></tr>
+   </table>
+   <p style="font-size:11.1pt;margin-top:2.5mm">Los hechizos se resuelven <b>al instante</b> y luego van al fondo del mazo.</p>
+  </div>
+ </div>
+ <div class="pn"><img src="img/pip1.png">6<img src="img/pip2.png"></div>
+</section>
+
+<!-- ============================================================ 7 ESCUELAS -->
+<section class="page">
+ <h2 class="grn">Las cuatro escuelas</h2>
+ <p class="lead">Cada mago pertenece a una escuela (un palo). <b>Una vez por partida</b>, al jugar una carta de tu palo, puedes activar su poder sobre una criatura objetivo.</p>
+ <div class="row" style="gap:4mm">
+  <div class="col">
+   <div class="sch"><img class="pp" src="img/pip1.png"><div><div class="nm" style="color:var(--red)">VITALIS</div>Tu criatura gana <b>+1 de defensa</b>.<br><span class="tg" style="background:#ffe3ee">OBJETIVO: TUYA</span></div></div>
+   <div class="sch"><img class="pp" src="img/pip2.png"><div><div class="nm" style="color:var(--blu)">AETHER</div>La criatura rival pierde <b>1 de defensa</b>.<br><span class="tg" style="background:#dff3ff">OBJETIVO: RIVAL</span></div></div>
+  </div>
+  <div class="col">
+   <div class="sch"><img class="pp" src="img/pip3.png"><div><div class="nm" style="color:var(--dkg)">GROVE</div>Tu criatura gana <b>+1 de ataque</b>.<br><span class="tg" style="background:#dcf9e3">OBJETIVO: TUYA</span></div></div>
+   <div class="sch"><img class="pp" src="img/pip4.png"><div><div class="nm" style="color:var(--lav)">RUIN</div>Haz <b>1 daño</b> a la criatura rival.<br><span class="tg" style="background:#ece7f5">OBJETIVO: RIVAL</span></div></div>
+  </div>
+ </div>
+ <div class="row" style="gap:5mm;margin-top:1mm">
+  <div class="col box y" style="font-size:11.5pt">
+   <h3>Letra pequeña</h3>
+   <ul style="margin:0">
+    <li>Los cambios de Vitalis, Aether y Grove son <b>permanentes</b> mientras la criatura siga en juego.</li>
+    <li>El daño de Ruin es daño normal: si no mata, se cura al final del turno.</li>
+    <li>Puedes <b>reservar</b> el poder para una carta posterior. Solo se gasta cuando se aplica.</li>
+    <li>Sin criatura válida, no hay activación y el poder se conserva.</li>
+   </ul>
+  </div>
+  <div style="width:48mm;flex:none"><img class="shot" src="img/scr_school.png"><div class="cap">ELIGE TU ESCUELA EN PICO-8</div></div>
+ </div>
+ <div class="pn"><img src="img/pip2.png">7<img src="img/pip3.png"></div>
+</section>
+
+<!-- ============================================================ 8 PREPARACION -->
+<section class="page">
+ <h2 class="org">Preparación</h2>
+ <div class="row" style="gap:6mm">
+  <div style="width:62mm;flex:none">
+   <div class="step"><span class="num">1</span><div>Baraja las <b>52 cartas</b> y forma el mazo en el centro.</div></div>
+   <div class="step"><span class="num">2</span><div>Cada mago empieza con <b>15 vidas</b>.</div></div>
+   <div class="step"><span class="num">3</span><div>Cada mago roba <b>7 cartas</b>.</div></div>
+   <div class="step"><span class="num">4</span><div>Cada mago <b>elige</b> (o sortea) su <b>escuela</b>.</div></div>
+   <div class="step"><span class="num">5</span><div>Decidid quién empieza. ¡Que comience el duelo!</div></div>
+   <div class="tip"><img src="img/wiz_r.png"><div class="bub"><b class="who" style="color:var(--red)">LA HECHICERA DICE</b>Deja espacio para cinco criaturas frente a ti. Las necesitarás.</div></div>
+  </div>
+  <div class="col">
+   <div class="mesa">
+    <div class="zone riv"><div class="grp"><span class="zl">MANÁ RIVAL</span><div><img class="rc s" src="img/c_4_9.png"><img class="rc s" src="img/c_4_7.png"></div></div><div class="grp" style="margin-left:auto"><span class="zl">CRIATURAS RIVALES</span><div><img class="rc s" src="img/c_2_5.png"><img class="rc s" src="img/c_4_3.png"><div class="slot" style="height:13mm;width:10mm"></div></div></div></div>
+    <div class="zone mid"><img class="rc m" src="img/c_back.png"><span class="zl">MAZO</span><span style="margin-left:auto;font:6pt/1.6 'PS2P';color:var(--lgr);text-align:right">HASTA 5<br>CRIATURAS<br>POR MAGO</span></div>
+    <div class="zone own"><div class="grp"><span class="zl">TU MANÁ</span><div><img class="rc s" src="img/c_1_6.png"><img class="rc s" src="img/c_2_9.png" style="transform:rotate(90deg);height:11mm;margin:0 1.5mm"></div></div><div class="grp" style="margin-left:auto"><span class="zl">TUS CRIATURAS</span><div><img class="rc s" src="img/c_1_4.png"><img class="rc s" src="img/c_3_2.png"><div class="slot" style="height:13mm;width:10mm"></div></div></div></div>
+    <div class="hand"><img src="img/c_1_2.png"><img src="img/c_3_12.png"><img src="img/c_1_8.png"><img src="img/c_2_11.png"><img src="img/c_1_5.png"></div>
+    <div class="center" style="background:var(--k0);font:5.6pt 'PS2P';color:var(--yel);padding:3.5mm 0 .5mm">TU MANO</div>
+   </div>
+   <p style="font-size:11.1pt;margin-top:3mm">Cada mago tiene su <b>zona de maná</b> y su <b>zona de criaturas</b>. El maná usado se <b>gira</b> (se pone de lado). El mazo queda entre los dos.</p>
+  </div>
+ </div>
+ <div class="pn"><img src="img/pip3.png">8<img src="img/pip4.png"></div>
+</section>
+
+<!-- ============================================================ 9 EL TURNO -->
+<section class="page">
+ <h2 class="blu">Tu turno en 4 pasos</h2>
+ <div class="row" style="gap:5mm">
+  <div class="col">
+   <div class="box" style="border-left:3mm solid var(--grn)"><div class="step" style="margin:0"><span class="num" style="background:var(--grn);color:var(--ink)">1</span><div><h3 style="color:var(--dkg)">Inicio</h3>Endereza tus cartas giradas, limpia los efectos temporales de tus criaturas y <b>roba 1 carta</b>.</div></div></div>
+   <div class="box" style="border-left:3mm solid var(--blu)"><div class="step" style="margin:0"><span class="num" style="background:var(--blu)">2</span><div><h3 style="color:var(--blu)">Invocación</h3>Juega cartas en el orden que quieras:<ul style="margin:1mm 0 0"><li><b>1</b> carta de maná.</li><li>Todas las <b>criaturas</b> y <b>hechizos</b> que puedas pagar.</li><li>Tu <b>poder de escuela</b>, si juegas una carta de tu palo.</li></ul></div></div></div>
+  </div>
+  <div class="col">
+   <div class="box" style="border-left:3mm solid var(--red)"><div class="step" style="margin:0"><span class="num">3</span><div><h3 style="color:var(--red)">Combate</h3>Declara atacantes, tu rival bloquea y ambos pueden lanzar hechizos. <b>(Ver página siguiente.)</b></div></div></div>
+   <div class="box" style="border-left:3mm solid var(--lav)"><div class="step" style="margin:0"><span class="num" style="background:var(--lav)">4</span><div><h3 style="color:var(--lav)">Fin</h3>Se limpian los bonus de hechizos y el daño marcado en <b>todas</b> las criaturas. Pasa el turno.</div></div></div>
+   <img class="shot" src="img/scr_main.png" style="width:56mm;margin:0 auto"><div class="cap center">FASE DE INVOCACIÓN EN PICO-8</div>
+  </div>
+ </div>
+ <div class="pn"><img src="img/pip4.png">9<img src="img/pip1.png"></div>
+</section>
+
+<!-- ============================================================ 10 COMBATE -->
+<section class="page">
+ <h2 class="red">¡Al combate!</h2>
+ <div class="row" style="gap:5mm">
+  <div class="col">
+   <div class="step"><span class="num">A</span><div><b>Ataca.</b> Elige tus atacantes y <b>gíralos</b>. No pueden atacar las criaturas recién invocadas ni las ya giradas.</div></div>
+   <div class="step"><span class="num">B</span><div><b>Bloquea.</b> El defensor asigna bloqueadores: cada uno bloquea a <b>un</b> atacante. Bloquear <b>no</b> gira.</div></div>
+   <div class="step"><span class="num">C</span><div><b>Hechizos.</b> Ambos magos pueden lanzar hechizos de combate. Cada uno se resuelve al instante.</div></div>
+   <div class="step"><span class="num">D</span><div><b>Daño.</b> Sin bloqueo, el atacante daña al mago. Con bloqueo, ambas criaturas se golpean. Defensa 0 o menos: al fondo del mazo.</div></div>
+   <div class="box p" style="margin-top:2mm">
+    <h3 style="color:var(--red)">¡Regla de oro!</h3>
+    <p style="margin:0"><b>Una criatura girada no puede bloquear.</b> Si atacaste con ella, o giraste un As para maná, quedará indefensa hasta tu siguiente turno.</p>
+   </div>
+  </div>
+  <div style="width:70mm;flex:none">
+   <div class="box y">
+    <h3>Ejemplo</h3>
+    <div class="row" style="align-items:center;justify-content:center;gap:2mm;margin:2mm 0 3mm">
+     <div class="center"><img class="rc l" src="img/c_3_3.png"><div class="cap">3/3</div></div>
+     <span class="vs">VS</span>
+     <div class="center"><img class="rc l" src="img/c_4_2.png"><div class="cap">2/2</div></div>
+    </div>
+    <p style="font-size:11.3pt;margin:0">El <b>3</b> ataca y el <b>2</b> bloquea. El 3 recibe 2 de daño y sobrevive (queda 3/1 hasta el final del turno). El 2 recibe 3 y <b>va al fondo del mazo</b>.</p>
+   </div>
+   <img class="shot" src="img/scr_block.png" style="width:54mm;margin:0 auto"><div class="cap center">¡LA CPU ATACA! ELIGE BLOQUEOS</div>
+  </div>
+ </div>
+ <div class="pn"><img src="img/pip1.png">10<img src="img/pip2.png"></div>
+</section>
+
+<!-- ============================================================ 11 EJEMPLO DE TURNO -->
+<section class="page">
+ <h2 class="lav">Un turno de ejemplo</h2>
+ <p class="lead">Ada es maga de <b style="color:var(--blu)">Aether ♦</b>. Su rival tiene en juego un <b>2/2</b>.</p>
+ <div class="row" style="gap:6mm">
+  <div class="col" style="font-size:11.7pt">
+   <div class="step"><span class="num">1</span><div><b>Inicio.</b> Endereza sus cartas y roba 1.</div></div>
+   <div class="step"><span class="num">2</span><div><b>Invocación.</b> Baja un <b>8♦</b> como maná.</div></div>
+   <div class="step"><span class="num">3</span><div>¡Es de su palo! Activa <b>Aether</b> sobre el 2/2 rival, que queda <b>2/1 para siempre</b>. Su poder ya está gastado para toda la partida.</div></div>
+   <div class="step"><span class="num">4</span><div>Gira 2 maná e invoca un <b>3♣</b> como criatura 3/3.</div></div>
+   <div class="step"><span class="num">5</span><div>El 3/3 acaba de llegar: <b>no puede atacar</b> este turno.</div></div>
+   <div class="step"><span class="num">6</span><div><b>Combate:</b> no declara atacantes. <b>Fin:</b> pasa el turno.</div></div>
+  </div>
+  <div style="width:66mm;flex:none">
+   <div class="mesa" style="padding:2mm">
+    <div class="zone riv" style="min-height:26mm;justify-content:center"><div class="center"><img class="rc m" src="img/c_4_2.png"><div class="px" style="font-size:6pt;color:var(--paper)">2/2 <span style="color:var(--yel)">→</span> <span style="color:var(--red)">2/1</span></div></div></div>
+    <div class="zone mid" style="justify-content:center;min-height:16mm"><span class="px" style="color:var(--blu);font-size:6.5pt"><img src="img/pip2.png" style="height:3mm;vertical-align:-.4mm"> −1 DEF</span></div>
+    <div class="zone own" style="min-height:26mm;justify-content:center"><img class="rc m" src="img/c_2_8.png"><img class="rc m" src="img/c_1_7.png"><img class="rc m" src="img/c_3_3.png"></div>
+   </div>
+   <div class="tip r" style="margin-top:4mm"><img src="img/wiz_r.png"><div class="bub"><b class="who">ADA PIENSA</b>Ahora mi 3/3 vence a su 2/1… ¡y ni siquiera lo rasguña!</div></div>
+  </div>
+ </div>
+ <div class="box b" style="margin-top:2mm"><h3 style="color:var(--blu)">…y en el turno siguiente</h3><p style="margin:0">El rival ataca con su 2/1. Ada tiene su 3/3 <b>enderezado</b>, así que puede bloquear: el 3/3 hace 3 de daño y el 2/1 va al fondo del mazo; el 3/3 recibe 2, sobrevive, y ese daño se cura al final del turno.</p></div>
+ <div class="pn"><img src="img/pip2.png">11<img src="img/pip3.png"></div>
+</section>
+
+<!-- ============================================================ 12 FAQ -->
+<section class="page">
+ <h2 class="pnk">Preguntas del gremio</h2>
+ <div class="row faq" style="gap:6mm;font-size:11.5pt">
+  <div class="col">
+   <b class="q">¿Qué pasa si se acaba el mazo?</b><p>No puede pasar: todas las cartas usadas vuelven al fondo. El mazo siempre tiene algo que ofrecer.</p>
+   <b class="q">¿Puedo usar mi poder de escuela dos veces?</b><p>No. Una sola activación <b>por partida</b>. No se recupera al cambiar de turno.</p>
+   <b class="q">¿Y si cancelo el objetivo?</b><p>Rechazar o cancelar no gasta el poder ni deshace la carta jugada.</p>
+   <b class="q">¿Puedo activar mi escuela en el turno rival?</b><p>Sí, si resuelves un hechizo de tu palo durante el combate y aún conservas el poder.</p>
+  </div>
+  <div class="col">
+   <b class="q">¿Una criatura puede bloquear a dos?</b><p>No. Cada defensora bloquea a una sola atacante.</p>
+   <b class="q">¿Hay límite de cartas en mano?</b><p>No. Guarda todo lo que quieras… si puedes pagarlo algún día.</p>
+   <b class="q">¿Aether puede matar?</b><p>Sí: si deja una criatura con defensa 0 o menos, va al fondo del mazo.</p>
+   <b class="q">¿Cuándo gano?</b><p>En el mismo instante en que tu rival llega a 0 o menos vidas.</p>
+  </div>
+ </div>
+ <div class="tip"><img src="img/wiz_b.png"><div class="bub"><b class="who">PRINCIPIO DEL ARCHIMAGO</b>Si una regla necesita más de una frase para explicarse, probablemente sobra. Ante la duda, elegid la opción más rápida y seguid jugando.</div></div>
+ <div class="box y" style="margin-top:3mm"><h3>Variantes caseras <span style="font-size:6pt;color:var(--dgr)">(OPCIONALES, NO OFICIALES)</span></h3>
+<div class="row" style="gap:4mm;font-size:10.8pt"><div class="col"><b>Duelo relámpago:</b> 10 vidas y 5 cartas iniciales.</div><div class="col"><b>Escuela secreta:</b> elige tu palo en secreto y revélalo al usar el poder.</div><div class="col"><b>Torneo:</b> al mejor de tres; quien pierde empieza la siguiente.</div></div></div>
+ <div class="pn"><img src="img/pip3.png">12<img src="img/pip4.png"></div>
+</section>
+
+<!-- ============================================================ 13 PICO-8 -->
+<section class="page night">
+ <h2 class="blu" style="box-shadow:1.3mm 1.3mm 0 var(--plum)">Juega en PICO-8</h2>
+ <div class="row" style="gap:5mm">
+  <div class="col" style="font-size:11.7pt">
+   <p>Arcane 52 existe también como cartucho para la consola de fantasía <b style="color:var(--yel)">PICO-8</b>: pantalla de 128×128, 16 colores y un duelo completo contra la CPU o contra un amigo en el mismo dispositivo.</p>
+   <h3 style="color:var(--yel)">Controles</h3>
+   <table style="color:var(--paper);font-size:11.3pt;margin-bottom:3mm">
+    <tr><td style="border-color:var(--dgr)"><span class="key ar">◀</span><span class="key ar">▶</span><span class="key ar">▲</span><span class="key ar">▼</span></td><td style="border-color:var(--dgr)">Mover el cursor</td></tr>
+    <tr><td style="border-color:var(--dgr)"><span class="key">Z</span> <span class="px" style="font-size:5.5pt">BOTÓN O</span></td><td style="border-color:var(--dgr)">Jugar, elegir, confirmar, activar poder</td></tr>
+    <tr><td style="border-color:var(--dgr)"><span class="key">X</span> <span class="px" style="font-size:5.5pt">BOTÓN X</span></td><td style="border-color:var(--dgr)">Volver, cancelar, reservar poder</td></tr>
+   </table>
+   <h3 style="color:var(--yel)">Dónde jugar</h3>
+   <ul style="margin:0">
+    <li><b>PC / Mac</b>: carga <code>arcane52.p8.png</code> en PICO-8 o usa los ejecutables.</li>
+    <li><b>Navegador</b>: la exportación web.</li>
+    <li><b>Consolas portátiles</b> (RGB30 y similares): copia el cartucho en <code>roms/pico-8/</code>.</li>
+   </ul>
+  </div>
+  <div style="width:62mm;flex:none">
+   <img class="shot" src="img/scr_title.png" style="border-color:var(--plum);box-shadow:1.2mm 1.2mm 0 var(--plum)">
+   <div class="row" style="gap:3mm;margin-top:4mm">
+    <img class="shot" src="img/scr_how.png" style="width:29.5mm;border-color:var(--plum);box-shadow:1mm 1mm 0 var(--plum)">
+    <img class="shot" src="img/scr_block.png" style="width:29.5mm;border-color:var(--plum);box-shadow:1mm 1mm 0 var(--plum)">
+   </div>
+   <div class="cap" style="color:var(--lav)">INCLUYE TUTORIAL INTERACTIVO</div>
+  </div>
+ </div>
+ <div class="modes"><div><img src="img/wiz_b.png"><div><b>VS CPU</b>Un rival que piensa sus bloqueos.</div></div><div><img src="img/wiz_r.png"><div><b>VS AMIGO</b>Mismo dispositivo; la mano se oculta al pasar el turno.</div></div><div><img src="img/skull.png" style="height:9mm"><div><b>TUTORIAL</b>El Archimago te guía en tu primer duelo.</div></div></div>
+ <div class="pn"><img src="img/pip4.png">13<img src="img/pip1.png"></div>
+</section>
+
+<!-- ============================================================ 14 RESUMEN -->
+<section class="page">
+ <h2>Resumen rápido</h2>
+ <div class="row" style="gap:5mm">
+  <div class="col">
+   <div class="box">
+    <h3>Preparación</h3>
+    <p class="px" style="font-size:6.3pt">15 VIDAS · 7 CARTAS · 1 ESCUELA</p>
+    <h3 style="margin-top:3mm">Turno</h3>
+    <p class="px" style="font-size:6.3pt;margin:0">1 INICIO: ENDEREZA + ROBA 1<br>2 INVOCACIÓN: 1 MANÁ + LO QUE PAGUES<br>3 COMBATE: ATACA → BLOQUEA → HECHIZOS<br>4 FIN: SE CURA EL DAÑO</p>
+   </div>
+   <div class="box l">
+    <h3>Recuerda</h3>
+    <ul style="margin:0;font-size:11.5pt">
+     <li>Criatura nueva no ataca.</li>
+     <li>Criatura girada no bloquea.</li>
+     <li>Todo vuelve al fondo del mazo.</li>
+     <li>Poder de escuela: 1 vez por partida.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="col">
+   <table style="font-size:11.1pt;background:#fff;border:.7mm solid var(--ink);box-shadow:1.2mm 1.2mm 0 var(--ink)">
+    <tr><th>CARTA</th><th>EFECTO</th></tr>
+    <tr><td><b>A–5</b></td><td>Criatura X/X. Coste 1·2·2·3·3</td></tr>
+    <tr><td><b>6–10</b></td><td>Maná: gírala para 1</td></tr>
+    <tr><td><b>J</b> (1)</td><td>Cancelar atacante · Imbloqueable</td></tr>
+    <tr><td><b>Q</b></td><td>+0/+2 (1) · +4 vidas (3)</td></tr>
+    <tr><td><b>K</b> (1)</td><td>+1/+0 · 1 daño</td></tr>
+    <tr><td><img src="img/pip1.png"></td><td>Vitalis: tuya +1 DEF</td></tr>
+    <tr><td><img src="img/pip2.png"></td><td>Aether: rival −1 DEF</td></tr>
+    <tr><td><img src="img/pip3.png"></td><td>Grove: tuya +1 ATQ</td></tr>
+    <tr><td><img src="img/pip4.png"></td><td>Ruin: rival 1 daño</td></tr>
+   </table>
+  </div>
+ </div>
+ <div class="box" style="margin-top:1mm;padding-bottom:1mm"><h3>Contador de vida <span style="font-size:6pt;color:var(--dgr)">(USA UNA MONEDA COMO MARCADOR)</span></h3>
+<div class="row" style="gap:2mm;align-items:center"><img src="img/wiz_b.png" style="width:9mm"><div class="track b" style="flex:1"><div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div class="hp">15</div></div></div>
+<div class="row" style="gap:2mm;align-items:center"><img src="img/wiz_r.png" style="width:9mm"><div class="track r" style="flex:1"><div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div class="hp">15</div></div></div></div>
+ <div class="pn"><img src="img/pip4.png">14<img src="img/pip1.png"></div>
+</section>
+
+<!-- ============================================================ 15 CONTRAPORTADA -->
+<section class="page night" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+ <div class="row" style="align-items:flex-end;gap:10mm;justify-content:center">
+  <img src="img/wiz_b.png" style="width:34mm">
+  <div class="row" style="gap:2mm"><img class="rc l tilt1" src="img/c_1_1.png"><img class="rc l" src="img/c_2_12.png"><img class="rc l tilt2" src="img/c_4_5.png"></div>
+  <img src="img/wiz_r.png" style="width:34mm;transform:scaleX(-1)">
+ </div>
+ <img src="img/logo.png" style="width:70mm;margin-top:10mm">
+ <p class="px" style="color:var(--pch);margin-top:6mm;font-size:7.5pt">UNA BARAJA. DOS MAGOS. UN DUELO.</p>
+ <p style="max-width:120mm;color:var(--lgr);margin-top:5mm;font-size:11.5pt">Diseño de juego y cartucho PICO-8: Antonio Martínez · Reglas oficiales v0.2<br>Código bajo licencia MIT · github.com/antonioemartinezr/arcane52<br>Las ilustraciones de cartas son una edición imaginaria; el juego se juega con cualquier baraja de 52 cartas.</p>
+ <div class="pn" style="color:var(--lav)"><img src="img/pip1.png"><img src="img/pip2.png"><img src="img/pip3.png"><img src="img/pip4.png"></div>
+</section>
+
+</body>
+</html>
